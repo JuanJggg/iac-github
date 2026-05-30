@@ -31,7 +31,7 @@ Resources:
           yum install -y httpd
           systemctl start httpd
           systemctl enable httpd
-          echo "hola mundo maicol bien" > /var/www/html/index.html
+          echo "TODO SALIO EXCELENTE :)" > /var/www/html/index.html
       Tags:
         - Key: Name
           Value: EC2-GitHubActions
