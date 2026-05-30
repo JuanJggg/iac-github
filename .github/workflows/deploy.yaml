@@ -1,18 +1,15 @@
-name: Deploy EC2
+name: Destroy EC2
 
 on:
   workflow_dispatch:
 
 jobs:
 
-  deploy:
+  destroy:
 
     runs-on: ubuntu-latest
 
     steps:
-
-      - name: Checkout repository
-        uses: actions/checkout@v4
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -21,8 +18,12 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      - name: Deploy CloudFormation Stack
+      - name: Destroy CloudFormation Stack
         run: |
-          aws cloudformation deploy \
-          --template-file templates/ec2.yaml \
+          aws cloudformation delete-stack \
+          --stack-name ec2-stack-clase
+          
+      - name: Wait for Stack Deletion
+        run: |
+          aws cloudformation wait stack-delete-complete \
           --stack-name ec2-stack-clase
